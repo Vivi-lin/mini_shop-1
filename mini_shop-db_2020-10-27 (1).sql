@@ -1,31 +1,7 @@
--- phpMyAdmin SQL Dump
--- version 5.0.2
--- https://www.phpmyadmin.net/
---
--- 主機： 127.0.0.1:3306
--- 產生時間： 2020-10-27 07:53:32
--- 伺服器版本： 8.0.18
--- PHP 版本： 7.4.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- 資料庫： `mini_shop`
---
-
--- --------------------------------------------------------
-
---
--- 資料表結構 `bill`
---
 
 CREATE TABLE `bill` (
   `bill_sn` mediumint(8) UNSIGNED NOT NULL COMMENT '帳單編號',
@@ -35,9 +11,6 @@ CREATE TABLE `bill` (
   `bill_status` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '處理狀態'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
---
--- 傾印資料表的資料 `bill`
---
 
 INSERT INTO `bill` (`bill_sn`, `user_sn`, `bill_total`, `bill_date`, `bill_status`) VALUES
 (1, 1, 20, '2020-10-27 07:25:46', NULL),
@@ -45,11 +18,6 @@ INSERT INTO `bill` (`bill_sn`, `user_sn`, `bill_total`, `bill_date`, `bill_statu
 (3, 1, 22, '2020-10-27 07:48:08', NULL),
 (4, 1, 20, '2020-10-27 07:49:51', NULL);
 
--- --------------------------------------------------------
-
---
--- 資料表結構 `bill_detail`
---
 
 CREATE TABLE `bill_detail` (
   `bill_sn` mediumint(8) UNSIGNED NOT NULL COMMENT '帳單編號',
@@ -58,21 +26,11 @@ CREATE TABLE `bill_detail` (
   `goods_total` mediumint(8) UNSIGNED NOT NULL COMMENT '小計'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
---
--- 傾印資料表的資料 `bill_detail`
---
-
 INSERT INTO `bill_detail` (`bill_sn`, `goods_sn`, `goods_amount`, `goods_total`) VALUES
 (1, 1, 1, 20),
 (2, 1, 1, 20),
 (3, 2, 1, 22),
 (4, 1, 1, 20);
-
--- --------------------------------------------------------
-
---
--- 資料表結構 `goods`
---
 
 CREATE TABLE `goods` (
   `goods_sn` mediumint(8) UNSIGNED NOT NULL COMMENT '商品編號',
@@ -83,19 +41,11 @@ CREATE TABLE `goods` (
   `goods_date` datetime NOT NULL COMMENT '上架日期'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
---
--- 傾印資料表的資料 `goods`
---
 
 INSERT INTO `goods` (`goods_sn`, `goods_title`, `goods_content`, `goods_price`, `goods_counter`, `goods_date`) VALUES
 (1, 'apple', '<p>AAAAAAAAAA</p>\r\n', 20, 3, '2020-10-27 07:11:01'),
 (2, 'banana', '<p>dwfsssfdsf</p>\r\n', 22, 2, '2020-10-27 07:11:24');
 
--- --------------------------------------------------------
-
---
--- 資料表結構 `users`
---
 
 CREATE TABLE `users` (
   `user_sn` mediumint(8) UNSIGNED NOT NULL COMMENT '使用者編號',
@@ -111,65 +61,30 @@ CREATE TABLE `users` (
   `user_address` varchar(255) NOT NULL COMMENT '使用者地址'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
---
--- 傾印資料表的資料 `users`
---
 
 INSERT INTO `users` (`user_sn`, `user_name`, `user_id`, `user_passwd`, `user_email`, `user_sex`, `user_tel`, `user_zip`, `user_county`, `user_district`, `user_address`) VALUES
-(1, '林清峰', 'cflin', '$2y$10$Hy/t3CkdnNxXIcSbfgmwf.3rZC7di/IqxlV87DbXI4I/gXI3hyGN.', 'cflin@mail.cjcu.edu.tw', '先生', '1234567', '711', '台南市', '歸仁區', '長大路1號');
+(1, '林', '107b11577', '$2y$10$IZEs/21SF3mBwBRBESEOiOD37Jfv.UNN.jmCzLpXJOel4JkEK.KOi', '107b11577@mailst.cjcu.edu.tw', '女士', '0900000000', '711', '台南市', '歸仁區', '大潭1號');
 
---
--- 已傾印資料表的索引
---
 
---
--- 資料表索引 `bill`
---
 ALTER TABLE `bill`
   ADD PRIMARY KEY (`bill_sn`);
 
---
--- 資料表索引 `bill_detail`
---
 ALTER TABLE `bill_detail`
   ADD PRIMARY KEY (`bill_sn`,`goods_sn`);
 
---
--- 資料表索引 `goods`
---
 ALTER TABLE `goods`
   ADD PRIMARY KEY (`goods_sn`);
 
---
--- 資料表索引 `users`
---
 ALTER TABLE `users`
   ADD PRIMARY KEY (`user_sn`),
   ADD UNIQUE KEY `user_id` (`user_id`);
 
---
--- 在傾印的資料表使用自動遞增(AUTO_INCREMENT)
---
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `bill`
---
 ALTER TABLE `bill`
   MODIFY `bill_sn` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '帳單編號', AUTO_INCREMENT=5;
 
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `goods`
---
 ALTER TABLE `goods`
   MODIFY `goods_sn` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '商品編號', AUTO_INCREMENT=3;
 
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `users`
---
 ALTER TABLE `users`
   MODIFY `user_sn` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '使用者編號', AUTO_INCREMENT=2;
 COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
